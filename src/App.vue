@@ -52,3 +52,7 @@
         margin: auto;
     }
 </style>
+
+<style lang="scss">
+    @import '../node_modules/bootstrap/scss/bootstrap.scss';
+</style>

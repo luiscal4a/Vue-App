@@ -26,13 +26,16 @@
                     email: this.input.username,
                     password: this.input.password
                 });
+
+                //console.log(response)
+                
                 if(this.input.username != "" && this.input.password != "") {
-                console.log(this.input.username);
-                console.log(this.input.password);
-                console.log(response.data.user.email);
-                console.log(response.data.user.password);
-                    if(this.input.username == response.data.user.email && this.input.password == response.data.user.password) {
+                    if(response.request.status===200) {
                         this.$emit("authenticated", true);
+                        this.$router.push({
+                          name: 'secure',
+                          params: { token: response.data.token }
+                        });
                         this.$router.replace({ name: "secure" });
                     } else {
                         console.log("The username and / or password is incorrect");

@@ -2,7 +2,7 @@
   <div class="hello">
   
     <div align="center">
-      <table class="table">
+      <b-table class="table">
         <thead>
           <tr>
             <th>First Name______</th>
@@ -17,30 +17,46 @@
             <td>{{ Product.category }}</td>
           </tr>
         </tbody>
-      </table>
+      </b-table>
     </div>
   
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+
+const items = [
+  { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+  { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+  { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+  { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
+]
+  
 export default {
   name: 'hello',
   data() {
     return {
-      Product: {},
+      items: items
+    }
+  },
+  methods:{
+    async start(){
+      const response = await this.axios.get('http://localhost:3002/api/product/');
+      console.log(response.data.products[0]);
+      this.Product = response.data.products[0];
     }
   },
   mounted() {
-    axios.get('http://localhost:3002/api/product/')
+    this.start();
+    /*axios.get('http://localhost:3002/api/product/')
       .then((response) =>{
+      console.log(response.data);
       console.log(response.data);
       this.Product = response.data;
     })
     .catch((error) => {
       console.log(error);
-    });
+    });*/
   },
 }
 </script>
